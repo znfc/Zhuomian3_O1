@@ -1,0 +1,107 @@
+diff --git a/AndroidManifest.xml b/AndroidManifest.xml
+index 89af46d..23bddf6 100644
+--- a/AndroidManifest.xml
++++ b/AndroidManifest.xml
+@@ -32,13 +32,13 @@
+     name in the permissions. eq com.mypackage.permission.READ_SETTINGS
+     -->
+     <permission
+-        android:name="com.android.launcher3.ZM.permission.READ_SETTINGS"
++        android:name="com.android.launcher3.permission.READ_SETTINGS"
+         android:permissionGroup="android.permission-group.SYSTEM_TOOLS"
+         android:protectionLevel="normal"
+         android:label="@string/permlab_read_settings"
+         android:description="@string/permdesc_read_settings"/>
+     <permission
+-        android:name="com.android.launcher3.ZM.permission.WRITE_SETTINGS"
++        android:name="com.android.launcher3.permission.WRITE_SETTINGS"
+         android:permissionGroup="android.permission-group.SYSTEM_TOOLS"
+         android:protectionLevel="signatureOrSystem"
+         android:label="@string/permlab_write_settings"
+@@ -46,8 +46,8 @@
+ 
+     <uses-permission android:name="com.android.launcher.permission.READ_SETTINGS" />
+     <uses-permission android:name="com.android.launcher.permission.WRITE_SETTINGS" />
+-    <uses-permission android:name="com.android.launcher3.zm.permission.READ_SETTINGS" />
+-    <uses-permission android:name="com.android.launcher3.zm.permission.WRITE_SETTINGS" />
++    <uses-permission android:name="com.android.launcher3.permission.READ_SETTINGS" />
++    <uses-permission android:name="com.android.launcher3.permission.WRITE_SETTINGS" />
+ 
+     <application
+         android:backupAgent="com.android.launcher3.LauncherBackupAgent"
+@@ -81,7 +81,6 @@
+                 <action android:name="android.intent.action.MAIN" />
+                 <category android:name="android.intent.category.HOME" />
+                 <category android:name="android.intent.category.DEFAULT" />
+-                <category android:name="android.intent.category.LAUNCHER" />
+                 <category android:name="android.intent.category.MONKEY"/>
+                 <category android:name="android.intent.category.LAUNCHER_APP" />
+             </intent-filter>
+@@ -108,10 +107,10 @@
+         -->
+         <provider
+             android:name="com.android.launcher3.LauncherProvider"
+-            android:authorities="com.android.launcher3.zm.settings"
++            android:authorities="com.android.launcher3.settings"
+             android:exported="true"
+-            android:writePermission="com.android.launcher3.ZM.permission.WRITE_SETTINGS"
+-            android:readPermission="com.android.launcher3.ZM.permission.READ_SETTINGS" />
++            android:writePermission="com.android.launcher3.permission.WRITE_SETTINGS"
++            android:readPermission="com.android.launcher3.permission.READ_SETTINGS" />
+ 
+         <!-- ENABLE_FOR_TESTING
+ 
+diff --git a/build.gradle b/build.gradle
+index b3a70a7..886ccac 100644
+--- a/build.gradle
++++ b/build.gradle
+@@ -2,7 +2,6 @@ buildscript {
+     repositories {
+         mavenCentral()
+         jcenter()
+-        google()
+     }
+     dependencies {
+         classpath 'com.android.tools.build:gradle:2.3.1'
+@@ -14,8 +13,8 @@ apply plugin: 'com.android.application'
+ apply plugin: 'com.google.protobuf'
+ 
+ android {
+-    compileSdkVersion 27
+-    buildToolsVersion '26.0.3'
++    compileSdkVersion 26
++    buildToolsVersion '26.0.0'
+ 
+     defaultConfig {
+         minSdkVersion 21
+@@ -33,13 +32,13 @@ android {
+ 
+     productFlavors {
+         aosp {
+-            applicationId 'com.android.launcher3.zm'
+-            testApplicationId 'com.android.launcher3.zm.tests'
++            applicationId 'com.android.launcher3'
++            testApplicationId 'com.android.launcher3.tests'
+         }
+ 
+         l3go {
+-            applicationId 'com.android.launcher3.zm'
+-            testApplicationId 'com.android.launcher3.zm.tests'
++            applicationId 'com.android.launcher3'
++            testApplicationId 'com.android.launcher3.tests'
+         }
+     }
+     sourceSets {
+@@ -85,11 +84,9 @@ android {
+ repositories {
+     mavenCentral()
+     jcenter()
+-    google()
+ }
+ 
+-//final String SUPPORT_LIBS_VERSION = '26.0.0-SNAPSHOT'
+-final String SUPPORT_LIBS_VERSION = '26.0.0+'
++final String SUPPORT_LIBS_VERSION = '26.0.0-SNAPSHOT'
+ dependencies {
+     compile "com.android.support:support-v4:${SUPPORT_LIBS_VERSION}"
+     compile "com.android.support:support-dynamic-animation:${SUPPORT_LIBS_VERSION}"
